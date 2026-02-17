@@ -1,5 +1,5 @@
 using System;
-using System.ComponentModel;
+
 public abstract class Goal
 {
     private string _name;
@@ -7,31 +7,26 @@ public abstract class Goal
     protected int _points;
     protected bool _isComplete;
 
-    public Goal(string name, string description, int points) 
+    public Goal(string name, string description, int points)
     {
         _name = name;
         _description = description;
         _points = points;
-        _isComplete = true;
+        _isComplete = false;
     }
 
     public string GetName() => _name;
+
     public abstract int RecordEvent();
+    public abstract string GetStatus();
 
-    public string GetSaveString()
+    public virtual string GetSaveString()
     {
-        return $"{GetType().Name} {_name} {_description} {_points} {_isComplete}";
+        return $"{GetType().Name}|{_name}|{_description}|{_points}|{_isComplete}";
     }
-
 
     protected string GetDetails()
     {
-        return $"{_name} {_description}";
+        return $"{_name} ({_description})";
     }
 }
-
-
-
-
-
-
