@@ -29,9 +29,8 @@ public class ChecklistGoal : Goal
     {
         return $"{(_isComplete ? "[X]" : "[ ]")} {GetName()} Completed {_amountCompleted}/{_target}";
     }
-
     public override string GetSaveString()
     {
-        return $"{GetType().Name}|{GetName()}|{_points}|{_target}|{_bonus}|{_amountCompleted}";
+        return $"{GetType().Name}|{GetName()}|{_points}|{_target}|{_bonus}|{_amountCompleted}|{_isComplete}";
     }
 }
