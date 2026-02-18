@@ -53,6 +53,7 @@ public class GoalManager
         Console.WriteLine("1. Simple Goal");
         Console.WriteLine("2. Eternal Goal");
         Console.WriteLine("3. Checklist Goal");
+        Console.WriteLine("4. Progress Goal");
         Console.Write("Select type: ");
         string type = Console.ReadLine();
 
@@ -80,6 +81,13 @@ public class GoalManager
             int bonus = int.Parse(Console.ReadLine());
 
             _goals.Add(new ChecklistGoal(name, desc, points, target, bonus));
+        }
+        else if (type == "4")
+        {
+            Console.Write("Target Amount: ");
+            int target = int.Parse(Console.ReadLine());
+
+            _goals.Add(new ProgressGoal(name, desc, points, target));
         }
     }
 
@@ -146,22 +154,55 @@ public class GoalManager
             string type = parts[0];
 
             if (type == "SimpleGoal")
-                _goals.Add(new SimpleGoal(parts[1], parts[2], int.Parse(parts[3])));
+            {
+                var goal = new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]));
+                _goals.Add(goal);
+            }
 
             else if (type == "EternalGoal")
-                _goals.Add(new EternalGoal(parts[1], parts[2], int.Parse(parts[3])));
+            {
+                var goal = new EternalGoal(parts[1], parts[2], int.Parse(parts[3]));
+                _goals.Add(goal);
+            }
 
             else if (type == "ChecklistGoal")
-                _goals.Add(new ChecklistGoal(
+            {
+                var goal = new ChecklistGoal(
+                    parts[1],                  // for name
+                    "",                        // for the description (optional if not stored)
+                    int.Parse(parts[2]),       // for points
+                    int.Parse(parts[3]),       // for target
+                    int.Parse(parts[4])        // if bonus
+                );
+
+                _goals.Add(goal);
+            }
+
+            else if (type == "ProgressGoal")
+            {
+                var goal = new ProgressGoal(
                     parts[1],
-                    parts[2],
-                    int.Parse(parts[3]),
-                    int.Parse(parts[4]),
-                    int.Parse(parts[5])
-                ));
+                    "",
+                    int.Parse(parts[2]),
+                    int.Parse(parts[3])
+                );
+
+                _goals.Add(goal);
+            }
+
+            else if (type == "NegativeGoal")
+            {
+                var goal = new NegativeGoal(
+                    parts[1],
+                    "",
+                    int.Parse(parts[2])
+                );
+
+                _goals.Add(goal);
+            }
         }
 
-        Console.WriteLine("Goals loaded!");
+        Console.WriteLine("Goals loaded successfully!");
     }
 
 }
