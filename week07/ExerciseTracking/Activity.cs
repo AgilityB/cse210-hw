@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 public abstract class Activity
 {
@@ -19,6 +20,15 @@ public abstract class Activity
     public int GetMinutes()
     {
         return _minutes;
+    }
+
+    // Obtaining the weekly summary
+    public int GetWeekNumber()
+    {
+        return CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+            GetDate(),
+        CalendarWeekRule.FirstDay,
+        DayOfWeek.Monday);
     }
 
     // Abstract calculation methods (declared but not implemented)
